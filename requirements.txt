@@ -1,0 +1,12 @@
+openai
+pyyaml
+rich
+prompt_toolkit
+colorama
+tiktoken
+langchain
+langchain_openai
+pytest
+pytest-cov
+build
+twine

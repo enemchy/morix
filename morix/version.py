@@ -1,0 +1,2 @@
+PROGRAM_NAME = "morix"
+PROGRAM_VERSION = "0.8.1"

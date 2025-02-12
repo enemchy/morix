@@ -1,0 +1,82 @@
+- type: function
+  function:
+    name: 'crud_files'
+    description: 'Function to save multiple files to disk'
+    strict: true
+    parameters:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: object
+            properties:
+              filename:
+                type: string
+                description: 'File name'
+              content:
+                type: string
+                description: 'File content'
+              operation:
+                type: string
+                enum: ['create', 'read', 'update', 'delete']
+                description: |
+                  Type of file operation:
+                  - create: Create file.
+                  - read: Read file.
+                  - update: Update file.
+                  - delete: Delete file.
+            required: ['filename', 'content', 'operation']
+            additionalProperties: false
+          description: 'Array of objects, each representing a file with a name and content'
+      required: ['files']
+      additionalProperties: false
+- type: function
+  function:
+    name: 'run_console_command'
+    strict: true
+    description: 'Function to execute a console command. Execution takes place in bash on darwin architecture'
+    parameters:
+      type: object
+      properties:
+        command:
+          type: string
+          description: 'Command to execute a console command'
+        timeout:
+          type: integer
+          description: 'The time to wait for the command response in seconds, after which the execution of the command will be stopped. By default let it be 10 seconds, but you can decrease or increase it if necessary'
+      required: ['command', 'timeout']
+      additionalProperties: false
+- type: function
+  function:
+    name: 'task_status'
+    strict: true
+    description: 'Function to send a message about the status of the task'
+    parameters:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: ['In progress','Completed', 'Unable to perform', 'Partially', 'No task was given']
+          description: |
+                  Was the task completed?:
+                  - Completed: task completed.
+                  - In progress: Task is in progress but not finished.
+                  - Unable to perform: Cannot complete the task
+                  - Partially: Only part of the task was completed and work needs to continue.
+                  - No task was given: The task was not specified.
+      required: ['status']
+      additionalProperties: false
+- type: function
+  function:
+    name: 'read_directory_structure'
+    strict: true
+    description: 'Функция для получения файлов проекта'
+    parameters:
+      type: object
+      properties:
+        project:
+          type: string
+          description: 'Путь к проекту, список файлов которого нужно получить'
+      required: ['project']
+      additionalProperties: false

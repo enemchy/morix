@@ -1,0 +1,22 @@
+llm:
+  deepseek:
+    name: deepseek-chat
+    base_url: https://api.deepseek.com
+    token: DEEPSEEK_API_KEY
+  openai:
+    name: o3-mini
+    base_url: https://api.openai.com/v1
+    token: OPENAI_API_KEY
+
+scan:
+  ignore_pattern_files: # files with ignore patterns
+  - ~/.gitignore_global
+  - ~/.config/morix/.gptignore
+  - .gitignore # file in the scan folder
+  - .gptignore # file in the scan folder
+  text_extensions: ['.txt', '.csv', '.html', '.htm', '.json', '.xml', '.py', '.md', '.proto', '.cs'] # extensions that will automatically be considered as text
+
+console_commands:
+  max_output_lines: 100 # max lines from console output
+  allow_run:  true # allow gpt run console command
+  wait_enter_before_run: false

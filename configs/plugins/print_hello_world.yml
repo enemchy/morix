@@ -1,0 +1,13 @@
+- type: function
+  function:
+    name: 'print_hello_world'
+    strict: true
+    description: 'Тестовая функция для проверки работы'
+    parameters:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 'Напиши анекдот'
+      required: ['message']
+      additionalProperties: false

@@ -32,6 +32,12 @@ def test_should_ignore():
     assert should_ignore("document.txt", patterns) is False
 
 
+def test_should_ignore_nested_paths():
+    patterns = ["dir", "dir/*.txt"]
+    assert should_ignore("dir/file.txt", patterns) is True
+    assert should_ignore("other/file.txt", patterns) is False
+
+
 @patch("builtins.open", new_callable=mock_open, read_data="print('test')")
 def test_is_text_file(mock_open):
     filepath = "/test/test.py"

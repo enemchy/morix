@@ -83,16 +83,25 @@ def should_ignore(path: str, patterns: List[str]) -> bool:
         bool: True if the path should be ignored, False otherwise.
     """
     from pathlib import Path
+
     path_obj = Path(path)
-    check_obj = path_obj.parent.name or path_obj.name
+    path_posix = path_obj.as_posix()
 
     for pattern in patterns:
-        if fnmatch.fnmatch(check_obj, pattern) or fnmatch.fnmatch(path_obj.name, pattern):
+        norm_pattern = pattern.rstrip('/').replace(os.sep, '/')
+
+        # Direct match on full path or file name
+        if fnmatch.fnmatch(path_posix, norm_pattern) or fnmatch.fnmatch(path_obj.name, norm_pattern):
             return True
 
-        if path_obj.is_relative_to(Path.cwd()):
-            if any(fnmatch.fnmatch(check_obj, f"{pattern}*") for pattern in patterns):
-                return True
+        # Match directories by treating pattern as prefix
+        prefix = f"{norm_pattern}/*"
+        if fnmatch.fnmatch(path_posix, prefix):
+            return True
+
+        # Match any individual part of the path
+        if any(fnmatch.fnmatch(part, norm_pattern) for part in path_obj.parts):
+            return True
 
     return False
 
